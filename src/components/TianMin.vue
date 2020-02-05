@@ -56,7 +56,7 @@
         <g class="num">
           <text>
             <tspan class="zhiyu">{{data.zhiyu}}</tspan>
-            <tspan class="siwang">| {{data.siwang}} |</tspan>
+            <tspan class="siwang"> | {{data.siwang}} | </tspan>
             <tspan
               class="quezhen"
             >{{parseInt(data.quezhen / 1000) > 0 ? (parseInt(data.quezhen / 1000) + ',') : ''}}</tspan>
@@ -91,20 +91,20 @@
           <text
             class="back"
             style="transform: translate(0pt, 0); text-anchor: center;"
-          >{{(data.zhiyu / data.quezhen * 100).toFixed(2)}}%</text>
+          >{{(Math.round(data.zhiyu / data.quezhen * 10000) / 100).toFixed(2)}}%</text>
           <text
             class="back"
             style="transform: translate(160pt, 0); text-anchor: center;"
-          >{{(data.siwang / data.quezhen * 100).toFixed(2)}}%</text>
+          >{{(Math.round(data.siwang / data.quezhen * 10000) / 100).toFixed(2)}}%</text>
 
           <text
             class="zhiyu"
             style="transform: translate(1pt, 0); text-anchor: center;"
-          >{{(data.zhiyu / data.quezhen * 100).toFixed(2)}}%</text>
+          >{{(Math.round(data.zhiyu / data.quezhen * 10000) / 100).toFixed(2)}}%</text>
           <text
             class="siwang"
             style="transform: translate(162pt, 0); text-anchor: center;"
-          >{{(data.siwang / data.quezhen * 100).toFixed(2)}}%</text>
+          >{{(Math.round(data.siwang / data.quezhen * 10000) / 100).toFixed(2)}}%</text>
         </g>
       </g>
       <!-- <g id="test">
