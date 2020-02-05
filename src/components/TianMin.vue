@@ -836,7 +836,6 @@ export default {
     this.range_100 = range_(100);
     this.range_10 = range_(10);
     let d = await d3.csv("https://tanshaocong.github.io/2019-nCoV/rate.csv");
-    console.log("d", d);
     this.dataset[0]["quezheng"] = d[0]["武汉地区"];
     this.dataset[0]["siwang"] = d[1]["武汉地区"];
     this.dataset[0]["zhiyu"] = d[2]["武汉地区"];
