@@ -25,6 +25,12 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  // width: 100%;
+  // height: 100%;
   // color: #2c3e50;
   // margin-top: 60px;
 }
@@ -33,9 +39,8 @@ export default {
   position: absolute;
   left: 0;
   right: 0;
-  margin: auto;
-  width: 414pt;
-  height: 1052pt;
+  // width: 100%;
+  // height: 100%;
   // border: 1px solid red;
   text-align: center;
 }

@@ -121,7 +121,7 @@
       </g>
     </svg>
     <svg
-      style="transform: translate(0, -70pt)"
+      id="logo"
       width="414pt"
       height="66pt"
       viewBox="0 0 414 66"
@@ -855,6 +855,20 @@ export default {
         this.time = tmp[0].split("-").join("/") + " " + tmp[1].split(":")[0];
       }
     }
+    let div_width = d3.select('#tianmin_div').node().getBoundingClientRect().width
+    let div_height = d3.select('#tianmin_div').node().getBoundingClientRect().height
+    // let svg_width = d3.select('#tianmin_svg').node().getBBox().width
+    let big_div = d3.select('#min_div').node().getBoundingClientRect()
+    let scale = big_div.width / div_width
+    let logo_h = div_height
+    let logo_height = d3.select('#logo').node().getBBox().height
+    console.log(logo_h, logo_height)
+    d3.select('#tianmin_svg')
+      .style('transform', `scale(${scale})`)
+      .style('transform-origin', 'top left')
+    d3.select('#logo')
+      .style('transform', `scale(${scale}) translate(0, ${logo_h - logo_height}px)`)
+      .style('transform-origin', 'top left')
   }
 };
 </script>
@@ -886,17 +900,21 @@ export default {
   top: 0;
   width: 414pt;
   height: 1052pt;
-  // border: 10px solid green;
+  // border: 1px solid green;
   font-family: "PingFangSC";
   font-weight: bold;
+  // overflow-x: hidden;
 }
 
 #tianmin_svg {
+  // position: absolute;
+  // left: 0;
+  // top: 0;
   width: 100%;
-  height: 100%;
+  height: 1052pt;
   // background: rgba(223, 220, 220, 0.3);
   // border: 1px solid red;
-  box-shadow: 0 0 5pt 0 rgba(31, 29, 29, 0.5);
+  // box-shadow: 0 0 5pt 0 rgba(31, 29, 29, 0.5);
 }
 
 @margin_left: 47pt;
@@ -1015,14 +1033,15 @@ export default {
     transform: scale(30);
   }
 }
-#logo {
-  width: 414pt;
-  transform: scale(1.5);
-}
 #something {
   transform: translate(46pt, 936pt);
   fill: rgb(78, 78, 78);
   font-weight: normal;
   font-size: 9pt;
+}
+#logo {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 </style>
