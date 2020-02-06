@@ -5,10 +5,10 @@
         <rect id="left_border" class="quezhen" />
         <text id="title_1" class="quezhen">{{title_1}}</text>
         <text id="title_2" fill="rgb(194,192,195)">
-          <tspan>各地区</tspan>
-          <tspan fill="rgb(103,100,103)">死亡率</tspan>
+          <tspan>各地区患者</tspan>
+          <tspan fill="rgb(103,100,103)">死亡比率</tspan>
           <tspan>与</tspan>
-          <tspan class="zhiyu">治愈率</tspan>
+          <tspan class="zhiyu">治愈比率</tspan>
         </text>
         <text id="time">
           <tspan>截至</tspan>
@@ -30,7 +30,7 @@
           <text class="text_transform">治愈</text>
         </g>
         <g id="num">
-          <text class="text_transform p_text">治愈数 | 死亡数 | 确诊数（例）</text>
+          <text class="text_transform p_text">治愈人数 | 死亡人数 | 确诊人数（例）</text>
         </g>
       </g>
       <defs>
@@ -121,7 +121,7 @@
       </g>
     </svg>
     <svg
-      style="transform: translate(0, -66pt)"
+      style="transform: translate(0, -70pt)"
       width="414pt"
       height="66pt"
       viewBox="0 0 414 66"
@@ -886,7 +886,7 @@ export default {
   top: 0;
   width: 414pt;
   height: 1052pt;
-  // border: 1px solid green;
+  // border: 10px solid green;
   font-family: "PingFangSC";
   font-weight: bold;
 }
@@ -915,7 +915,7 @@ export default {
   }
   #title_2 {
     transform: translate(@border-left, 70px);
-    font-size: 24pt;
+    font-size: 22pt;
   }
   #time {
     font-size: 9pt;

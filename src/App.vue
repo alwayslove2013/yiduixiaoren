@@ -7,11 +7,14 @@
 </template>
 
 <script>
+// import * as d3 from 'd3'
 import TianMin from "./components/TianMin";
 export default {
   name: "app",
   components: {
     TianMin
+  },
+  mounted: function() {
   }
 };
 </script>
@@ -23,12 +26,17 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   // color: #2c3e50;
-  margin-top: 60px;
+  // margin-top: 60px;
 }
 
 #min_div {
   position: absolute;
-  width: 800px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 414pt;
+  height: 1052pt;
   // border: 1px solid red;
+  text-align: center;
 }
 </style>
