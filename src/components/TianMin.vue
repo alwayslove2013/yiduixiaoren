@@ -836,18 +836,21 @@ export default {
     this.range_100 = range_(100);
     this.range_10 = range_(10);
     let d = await d3.csv("https://tanshaocong.github.io/2019-nCoV/rate.csv");
-    this.dataset[0]["quezheng"] = d[0]["武汉地区"];
-    this.dataset[0]["siwang"] = d[1]["武汉地区"];
-    this.dataset[0]["zhiyu"] = d[2]["武汉地区"];
-    this.dataset[1]["quezheng"] = d[0]["湖北非武汉地区"];
-    this.dataset[1]["siwang"] = d[1]["湖北非武汉地区"];
-    this.dataset[1]["zhiyu"] = d[2]["湖北非武汉地区"];
-    this.dataset[2]["quezheng"] = d[0]["全国非湖北地区"];
-    this.dataset[2]["siwang"] = d[1]["全国非湖北地区"];
-    this.dataset[2]["zhiyu"] = d[2]["全国非湖北地区"];
-    this.dataset[3]["quezheng"] = d[0]["海外"];
-    this.dataset[3]["siwang"] = d[1]["海外"];
-    this.dataset[3]["zhiyu"] = d[2]["海外"];
+    console.log(d);
+    let dataset_=[{}, {}, {}, {}]
+    dataset_[0]["quezhen"] = d[0]["武汉地区"];
+    dataset_[0]["siwang"] = d[1]["武汉地区"];
+    dataset_[0]["zhiyu"] = d[2]["武汉地区"];
+    dataset_[1]["quezhen"] = d[0]["湖北非武汉地区"];
+    dataset_[1]["siwang"] = d[1]["湖北非武汉地区"];
+    dataset_[1]["zhiyu"] = d[2]["湖北非武汉地区"];
+    dataset_[2]["quezhen"] = d[0]["全国非湖北地区"];
+    dataset_[2]["siwang"] = d[1]["全国非湖北地区"];
+    dataset_[2]["zhiyu"] = d[2]["全国非湖北地区"];
+    dataset_[3]["quezhen"] = d[0]["海外"];
+    dataset_[3]["siwang"] = d[1]["海外"];
+    dataset_[3]["zhiyu"] = d[2]["海外"];
+    this.dataset = dataset_;
 
     for (let key in d[0]) {
       if (key.indexOf(" ") > 0) {
