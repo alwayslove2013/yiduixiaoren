@@ -6,7 +6,7 @@
         <text id="title_1" class="quezhen">{{title_1}}</text>
         <text id="title_2" fill="rgb(194,192,195)">
           <tspan>各地区患者</tspan>
-          <tspan fill="rgb(103,100,103)">死亡比率</tspan>
+          <tspan fill="rgb(103,100,103)">病亡比率</tspan>
           <tspan>与</tspan>
           <tspan class="zhiyu">治愈比率</tspan>
         </text>
@@ -23,14 +23,14 @@
         </g>
         <g id="siwang">
           <path class="siwang xiaoren" :d="icon_path_d" />
-          <text class="text_transform">死亡</text>
+          <text class="text_transform">病亡</text>
         </g>
         <g id="zhiyu">
           <path class="zhiyu xiaoren" :d="icon_path_d" />
           <text class="text_transform">治愈</text>
         </g>
         <g id="num">
-          <text class="text_transform p_text">治愈人数 | 死亡人数 | 确诊人数（例）</text>
+          <text class="text_transform p_text">治愈人数 | 病亡人数 | 确诊人数（例）</text>
         </g>
       </g>
       <defs>
@@ -115,7 +115,7 @@
       </g>-->
       <g id="something">
         <text class="text_">
-          <tspan>注：死亡比率为各地区公布的死亡人数在确诊人数中的占比；治愈比率为该地区</tspan>
+          <tspan>注：病亡比率为各地区公布的病亡人数在确诊人数中的占比；治愈比率为该地区</tspan>
           <tspan x="0" dy="16pt">治愈人数在确诊人数中的占比。</tspan>
         </text>
       </g>
@@ -745,7 +745,7 @@ export default {
   data() {
     return {
       title_1: "新冠肺炎疫情",
-      // title_2: "各地区死亡率百分比",
+      // title_2: "各地区病亡率百分比",
       time: "2020/02/04 ",
       dataset: [
         {
