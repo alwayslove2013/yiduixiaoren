@@ -744,8 +744,8 @@ export default {
   name: "tian-min",
   data() {
     return {
-      title_1: "新型冠状病毒感染肺炎疫情",
-      title_2: "各地区死亡率百分比",
+      title_1: "新冠肺炎疫情",
+      // title_2: "各地区死亡率百分比",
       time: "2020/02/04 ",
       dataset: [
         {
