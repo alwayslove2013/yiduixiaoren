@@ -6,9 +6,9 @@
         <text id="title_1" class="quezhen">{{title_1}}</text>
         <text id="title_2" fill="rgb(194,192,195)">
           <tspan>各地区患者</tspan>
-          <tspan fill="rgb(103,100,103)">病亡比率</tspan>
-          <tspan>与</tspan>
           <tspan class="zhiyu">治愈比率</tspan>
+          <tspan>与</tspan>
+          <tspan fill="rgb(103,100,103)">病亡比率</tspan>
         </text>
         <text id="time">
           <tspan>截至</tspan>
@@ -17,17 +17,17 @@
         </text>
       </g>
       <g id="legend">
-        <g id="quezhen">
-          <path class="quezhen xiaoren" :d="icon_path_d" />
-          <text class="text_transform">确诊</text>
+        <g id="zhiyu">
+          <path class="zhiyu xiaoren" :d="icon_path_d" />
+          <text class="text_transform">治愈</text>
         </g>
         <g id="siwang">
           <path class="siwang xiaoren" :d="icon_path_d" />
           <text class="text_transform">病亡</text>
         </g>
-        <g id="zhiyu">
-          <path class="zhiyu xiaoren" :d="icon_path_d" />
-          <text class="text_transform">治愈</text>
+        <g id="quezhen">
+          <path class="quezhen xiaoren" :d="icon_path_d" />
+          <text class="text_transform">确诊</text>
         </g>
         <g id="num">
           <text class="text_transform p_text">治愈人数 | 病亡人数 | 确诊人数（例）</text>
@@ -837,7 +837,36 @@ export default {
     this.range_10 = range_(10);
     let d = await d3.csv("https://tanshaocong.github.io/2019-nCoV/rate.csv");
     console.log(d);
-    let dataset_=[{}, {}, {}, {}]
+    let dataset_ = [
+      {
+        title_1: "武汉",
+        title_2: "",
+        siwang: 362,
+        zhiyu: 368,
+        quezhen: 8351
+      },
+      {
+        title_1: "湖北",
+        title_2: "（除武汉）",
+        siwang: 117,
+        zhiyu: 152,
+        quezhen: 8327
+      },
+      {
+        title_1: "全国",
+        title_2: "（除湖北、包括港澳台地区）",
+        siwang: 13,
+        zhiyu: 401,
+        quezhen: 7699
+      },
+      {
+        title_1: "海外",
+        title_2: "",
+        siwang: 1,
+        zhiyu: 19,
+        quezhen: 193
+      }
+    ];
     dataset_[0]["quezhen"] = d[0]["武汉地区"];
     dataset_[0]["siwang"] = d[1]["武汉地区"];
     dataset_[0]["zhiyu"] = d[2]["武汉地区"];
@@ -858,20 +887,36 @@ export default {
         this.time = tmp[0].split("-").join("/") + " " + tmp[1].split(":")[0];
       }
     }
-    let div_width = d3.select('#tianmin_div').node().getBoundingClientRect().width
-    let div_height = d3.select('#tianmin_div').node().getBoundingClientRect().height
+    let div_width = d3
+      .select("#tianmin_div")
+      .node()
+      .getBoundingClientRect().width;
+    let div_height = d3
+      .select("#tianmin_div")
+      .node()
+      .getBoundingClientRect().height;
     // let svg_width = d3.select('#tianmin_svg').node().getBBox().width
-    let big_div = d3.select('#min_div').node().getBoundingClientRect()
-    let scale = big_div.width / div_width
-    let logo_h = div_height
-    let logo_height = d3.select('#logo').node().getBBox().height
-    console.log(logo_h, logo_height)
-    d3.select('#tianmin_svg')
-      .style('transform', `scale(${scale})`)
-      .style('transform-origin', 'top left')
-    d3.select('#logo')
-      .style('transform', `scale(${scale}) translate(0, ${logo_h - logo_height}px)`)
-      .style('transform-origin', 'top left')
+    let big_div = d3
+      .select("#min_div")
+      .node()
+      .getBoundingClientRect();
+    let scale = big_div.width / div_width;
+    let logo_h = div_height;
+    let logo_height = d3
+      .select("#logo")
+      .node()
+      .getBBox().height;
+    // console.log(logo_h, logo_height);
+    d3.select("#tianmin_svg")
+      .style("transform", `scale(${scale})`)
+      .style("transform-origin", "top left");
+    d3.select("#logo")
+      .style(
+        "transform",
+        `scale(${scale})`
+      )
+      .style("transform-origin", "bottom left");
+    console.log(` translate(0, ${logo_h - logo_height}px)`)
   }
 };
 </script>
@@ -898,11 +943,11 @@ export default {
 }
 
 #tianmin_div {
-  position: absolute;
+  // position: absolute;
   left: 0;
   top: 0;
   width: 414pt;
-  height: 1052pt;
+  height: 255vw;
   // border: 1px solid green;
   font-family: "PingFangSC";
   font-weight: bold;
@@ -959,6 +1004,9 @@ export default {
     transform: translate(@gap_legend, 0);
   }
   #zhiyu {
+    transform: translate(0, 0);
+  }
+  #quezhen {
     transform: translate(2 * @gap_legend, 0);
   }
   #num {
@@ -1045,6 +1093,6 @@ export default {
 #logo {
   position: absolute;
   left: 0;
-  top: 0;
+  bottom: 0;
 }
 </style>
