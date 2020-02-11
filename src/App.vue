@@ -1,21 +1,24 @@
 <template>
   <div id="app">
     <div id="min_div">
-      <tian-min/>
+      <!-- <tian-min/> -->
       <!-- <tian-min-tencent/> -->
+      <life-and-death/>
     </div>
   </div>
 </template>
 
 <script>
 // import * as d3 from 'd3'
-import TianMin from "./components/TianMin";
+// import TianMin from "./components/TianMin";
 // import TianMinTencent from "./components/TianMinTencent";
+import LifeAndDeath from "./components/LifeAndDeath";
 export default {
   name: "app",
   components: {
-    TianMin,
+    // TianMin,
     // TianMinTencent,
+    LifeAndDeath,
   },
   mounted: function() {
   }
