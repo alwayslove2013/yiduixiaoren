@@ -916,10 +916,13 @@ export default {
 }
 
 .diagnosis {
-  fill: #9a0000;
-  background: #9a0000;
-  color: #9a0000;
-  opacity: 0.69;
+  // fill: #9a0000;
+  // background: #9a0000;
+  // color: #9a0000;
+  // opacity: 0.69;
+  fill: #de5e5b;
+  background: #de5e5b;
+  color: #de5e5b;
 }
 
 .cure {
