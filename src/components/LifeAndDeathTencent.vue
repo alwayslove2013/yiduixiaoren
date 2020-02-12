@@ -13,19 +13,19 @@
     <div id="total">
       <div
         class="title"
-      >累计治愈和病亡病例（{{date_list[select_date_id] ? date_list[select_date_id].month : ''}}月{{date_list[select_date_id] ? date_list[select_date_id].day : ''}}日）</div>
+      >各地区累计治愈/病亡人数（{{date_list[select_date_id] ? date_list[select_date_id].month : ''}}月{{date_list[select_date_id] ? date_list[select_date_id].day : ''}}日）</div>
       <div id="legend">
         <div class="legend_part">
-          <div class="diagnosis icon" />
-          <div class="legend_text">确诊人数</div>
+          <div class="death icon" />
+          <div class="legend_text">病亡人数</div>
         </div>
         <div class="legend_part">
           <div class="cure icon" />
           <div class="legend_text">治愈人数</div>
         </div>
         <div class="legend_part">
-          <div class="death icon" />
-          <div class="legend_text">病亡人数</div>
+          <div class="diagnosis icon" />
+          <div class="legend_text">确诊人数</div>
         </div>
       </div>
 
@@ -60,8 +60,8 @@
             :style="`transform: translate(0, ${total_svg_height * 0.28 * index}px);`"
           >
             <text style="transform: translate(0, 4vw)">
-              <tspan x="2vw" font-size="3.2vw" font-weight="bold">{{data.title_1}}</tspan>
-              <tspan x="1vw" dy="3vw" font-size="2.2vw" fill="#888888">{{data.title_2}}</tspan>
+              <tspan x="2vw" font-size="3.2vw" font-weight="500">{{data.title_1}}</tspan>
+              <tspan x="1.3vw" dy="3vw" font-size="2.1vw" fill="#888888">{{data.title_2}}</tspan>
             </text>
             <rect
               :x="total_x_begin"
@@ -169,10 +169,14 @@
           </g>
         </svg>
       </div>
+
+      <div class="discription">
+        *符号“//”一般用于数据差异过大时隔断坐标轴
+      </div>
     </div>
 
     <div id="add" style="margin-top: 10vw;">
-      <div class="title">新增治愈和病亡病例</div>
+      <div class="title">全国新增治愈/病亡人数</div>
       <div id="legend" style="margin-top: 3vw;">
         <div class="legend_part">
           <div class="legend_line_cure"></div>
@@ -205,12 +209,29 @@
           >{{num2text(label)}}{{index===0 ? '%':''}}</div>
         </div>
         <div class="life_svg_div">
+          <div class="highlight_svg_div">
+            <svg width="100%" height="100%">
+              <defs>
+                <linearGradient id="orange_red" x1="100%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:rgb(0, 186, 209); stop-opacity: 0.05" />
+                  <stop offset="100%" style="stop-color:rgb(0, 186, 209); stop-opacity: 0.25" />
+                </linearGradient>
+              </defs>
+              <rect
+                :x="hightlight_rect.x"
+                :y="hightlight_rect.y"
+                :width="hightlight_rect.width"
+                :height="hightlight_rect.height"
+                fill="url(#orange_red)"
+              />
+            </svg>
+          </div>
           <div
             class="life_svg_div_big"
             :style="`height: 100%; width: ${dataLens / showLens * 100}%`"
           >
             <svg width="100%" height="100%" style="background: none; overflow: visible;">
-              <defs>
+              <!-- <defs>
                 <linearGradient id="orange_red" x1="100%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" style="stop-color:rgb(0, 186, 209); stop-opacity: 0.05" />
                   <stop offset="100%" style="stop-color:rgb(0, 186, 209); stop-opacity: 0.25" />
@@ -224,7 +245,7 @@
                   :width="2.6 * add_x_step"
                   :height="8.5 * add_y_step"
                 />
-              </g>
+              </g>-->
               <g id="horizontal_line">
                 <path
                   v-for="(label, index) in add_y_label"
@@ -236,6 +257,7 @@
               <g id="line-chart">
                 <path
                   :d="cure_rect_path"
+                  stroke-dasharray="0.4vw, 0.4vw"
                   style="stroke: #62c298; stroke-width: 0.2vw; fill: none;"
                 />
                 <path
@@ -253,6 +275,7 @@
                 />
                 <path
                   :d="death_rect_path"
+                  stroke-dasharray="0.4vw, 0.4vw"
                   style="stroke: #333333; stroke-width: 0.2vw; fill: none;"
                 />
                 <path
@@ -322,7 +345,7 @@
               <g id="x-label">
                 <text
                   v-for="(date, index) in date_list"
-                  style="text-anchor: middle; font-size: 3vw;"
+                  :style="`text-anchor: middle; font-size: ${index === select_date_id ? 4 : 3}vw; transform: translateY(${index === select_date_id ? 0.3 : 0}vw); font-weight: ${index === select_date_id ? 500 : 400}`"
                   :x="add_x_step * (2 * index + 1)"
                   :y="6.65 * add_y_step"
                   :key="`${date.month}-${date.day}`"
@@ -343,13 +366,11 @@
         </svg>
       </div>
 
-      <div id="footer" style="height: 30vw;">
-        {{test}} / {{add_svg_width.toFixed(1)}} / {{dataViewWidth}} // {{add_x_step}}
-        <p>max_scroll_distance: {{max_scroll_distance}}</p>
-        <p>dataViewWidth: {{dataViewWidth}}</p>
-        <p>select_date_id_bar: {{select_date_id_bar}}</p>
-        <p>gap: {{gap}}</p>
+      <div class="discription" style="margin-left: 3vw;">
+        *拖动图表查看早期数据，移动滑块选择具体日期，条形图也会随日期变化
       </div>
+
+      <div id="footer" style="height: 30vw;"></div>
     </div>
   </div>
 </template>
@@ -370,7 +391,7 @@ export default {
       date_list: [],
       select_date_id: 0,
       select_date_id_bar: 0,
-      select_data_id_slider: 0,
+      select_date_id_slider: 0,
       total_x_label: [[0, 200, 400, 600, 800, 1000, 7000, 10000]],
       total_x_begin: 0,
       total_x_step: 0,
@@ -388,9 +409,37 @@ export default {
       add_svg_height: 0,
       add_y_step: 0,
       add_x_step: 0,
+      add_x_end: 0,
       max_scroll_distance: 0,
-      gap: 0
+      gap: 0,
+      hightlight_rect: {}
     };
+  },
+  watch: {
+    select_date_id_slider() {
+      if (d3.select(".highlight_svg_div").node()) {
+        let highlight_div_rect = d3
+          .select(".highlight_svg_div")
+          .node()
+          .getBoundingClientRect();
+        let svg_width = highlight_div_rect.width;
+        let width = this.add_x_step * 2.6;
+        let height = 8.5 * this.add_y_step;
+        let x =
+          svg_width -
+          this.add_x_end -
+          width / 2 -
+          (this.showLens - 1 - this.select_date_id_slider) * 2 * this.add_x_step -
+          this.add_x_step * 1;
+        let y = this.add_y_step * 0.5;
+        this.hightlight_rect =  {
+          x,
+          y,
+          width,
+          height
+        };
+      }
+    }
   },
   computed: {
     cure_rect_path() {
@@ -481,6 +530,7 @@ export default {
       this.add_svg_height = add_svg_div_rect.height;
       this.add_y_step = this.add_svg_height / 9.5;
       this.add_x_step = this.add_svg_width / 2 / (this.dataLens + 0.5);
+      this.add_x_end = this.add_svg_width - 2 * this.dataLens * this.add_x_step;
       // console.log(add_svg_div_rect);
     },
     compute_total_x_label(dataset) {
@@ -544,9 +594,9 @@ export default {
       ];
     },
     async initData_pku() {
-      // let getDataUrl = "https://tanshaocong.github.io/2019-nCoV/map.csv";
-      // let data_tmp = await d3.csv(getDataUrl);
-      let data_tmp = await d3.csv("/map.csv");
+      let getDataUrl = "https://tanshaocong.github.io/2019-nCoV/map.csv";
+      let data_tmp = await d3.csv(getDataUrl);
+      // let data_tmp = await d3.csv("/map.csv");
       // console.log('get data from pku', data_tmp)
       let day_begin = 10;
       let month_begin = 1;
@@ -805,7 +855,7 @@ export default {
             })
         );
       };
-      this.select_date_id_slider = this.showLens - 1
+      this.select_date_id_slider = this.showLens - 1;
       let svgId = "slider_svg";
       plotDragBars(svgId, this.showLens);
       this.select_date_id_bar = this.dataLens - this.showLens;
@@ -879,8 +929,8 @@ export default {
 }
 
 .title {
-  font-weight: bold;
-  font-size: 30 /7.5vw;
+  font-weight: 500;
+  font-size: 3.5vw;
 }
 
 .label_text {
@@ -947,12 +997,20 @@ export default {
     top: 0 /7.5vw;
     line-height: 38 /7.5vw;
     font-size: 24 /7.5vw;
+    border-radius: 1vw;
     // border: 1 /7.5vw solid green;
     padding: 35 /7.5vw 42 /7.5vw 42 /7.5vw 40 /7.5vw;
-    background: #f7f7f7;
-    box-shadow: 1 /7.5vw 1 /7.5vw 1 /7.5vw rgba(0, 0, 0, 0.2);
+    background: #f9f9f9;
+    // box-shadow: 1 /7.5vw 1 /7.5vw 1 /7.5vw rgba(0, 0, 0, 0.2);
     color: #888888;
   }
+}
+
+.discription {
+  margin-top: 2vw;
+  margin-left: 1.5vw;
+  color: #b2b2b2;
+  font-size: 2.2vw;
 }
 
 #total {
@@ -961,12 +1019,13 @@ export default {
     margin-top: 20 /7.5vw;
     height: 20 /7.5vw;
     .legend_part {
-      float: left;
-      margin-left: 75 /7.5vw;
+      float: right;
+      margin-left: 1.5vw;
       .legend_text {
         float: left;
-        margin-left: 16 /7.5vw;
+        margin-left: 1.5vw;
         font-size: 20 /7.5vw;
+        margin-right: 2vw;
       }
       .icon {
         width: 18 /7.5vw;
@@ -977,7 +1036,7 @@ export default {
     }
   }
   #total_svg_div {
-    margin-top: 20 /7.5vw;
+    margin-top: 4vw;
     width: 100%;
     height: 40vw;
     // background: rgba(142, 170, 142, 0.2);
@@ -993,7 +1052,8 @@ export default {
 
 #add {
   #legend {
-    width: 100%;
+    margin-left: 15%;
+    width: 80%;
     height: 6vw;
     // background: rgba(142, 170, 142, 0.1);
     .legend_part {
@@ -1011,7 +1071,7 @@ export default {
       transform: translateY(-50%);
       width: 4vw;
       height: 0.2vw;
-      border-bottom: 0.3vw solid #62c298;
+      border-bottom: 0.3vw dashed #62c298;
     }
     .legend_line_death {
       position: absolute;
@@ -1020,7 +1080,7 @@ export default {
       transform: translateY(-50%);
       width: 4vw;
       height: 0.2vw;
-      border-bottom: 0.3vw solid #010604;
+      border-bottom: 0.3vw dashed #010604;
     }
     .legend_icon_line {
       position: absolute;
@@ -1033,7 +1093,7 @@ export default {
     .legend_text_line {
       position: absolute;
       top: 50%;
-      left: 11.5vw;
+      left: 11vw;
       transform: translateY(-50%);
       font-size: 2.5vw;
       height: 3vw;
@@ -1042,7 +1102,7 @@ export default {
     .legend_icon {
       position: absolute;
       top: 50%;
-      left: 4vw;
+      left: 5vw;
       transform: translateY(-50%);
       width: 2vw;
       height: 2vw;
@@ -1050,7 +1110,7 @@ export default {
     .legend_text {
       position: absolute;
       top: 50%;
-      left: 7.5vw;
+      left: 8vw;
       transform: translateY(-50%);
       font-size: 2.5vw;
       height: 3vw;
@@ -1074,16 +1134,24 @@ export default {
       margin-top: 3vw;
     }
     .life_svg_div {
+      // position: relative;
       margin-left: 2%;
       float: left;
       width: 88%;
       height: 100%;
       // background: rgba(142, 170, 142, 0.1);
-      overflow: scroll;
+      overflow-x: scroll;
+      overflow-y: hidden;
       direction: rtl;
       text-align: center;
       &::-webkit-scrollbar {
         display: none;
+      }
+      .highlight_svg_div {
+        position: absolute;
+        width: 100%;
+        height: 70vw;
+        // background: rgba(133, 113, 113, 0.3);
       }
     }
   }
