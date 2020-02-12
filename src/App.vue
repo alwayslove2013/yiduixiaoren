@@ -4,8 +4,8 @@
       <!-- <tian-min/> -->
       <!-- <tian-min-tencent/> -->
       <!-- <life-and-death/> -->
-      <life-death/>
-      <!-- <life-and-death-tencent/> -->
+      <!-- <life-death/> -->
+      <life-and-death-tencent/>
     </div>
   </div>
 </template>
@@ -15,16 +15,16 @@
 // import TianMin from "./components/TianMin";
 // import TianMinTencent from "./components/TianMinTencent";
 // import LifeAndDeath from "./components/LifeAndDeath";
-import LifeDeath from "./components/LifeDeath";
-// import LifeAndDeathTencent from "./components/LifeAndDeathTencent"
+// import LifeDeath from "./components/LifeDeath";
+import LifeAndDeathTencent from "./components/LifeAndDeathTencent"
 export default {
   name: "app",
   components: {
     // TianMin,
     // TianMinTencent,
     // LifeAndDeath,
-    LifeDeath,
-    // LifeAndDeathTencent
+    // LifeDeath,
+    LifeAndDeathTencent
   },
   mounted: function() {
   }
