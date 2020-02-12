@@ -201,7 +201,8 @@
                 :y="add_y_begin"
                 :width="add_x_step * 2.8"
                 :height="add_y_step * 8.5"
-                fill="rgba(0, 186, 209, 0.2)"/>
+                fill="rgba(0, 186, 209, 0.2)"
+              />
               <rect
                 :x="add_x_begin + (date_select_id * 2 + 1) * add_x_step - add_x_step * 1.1"
                 :y="add_y_step * 6.2"
@@ -209,7 +210,8 @@
                 :height="add_y_step * 0.6"
                 :rx="add_y_step * 0.1"
                 :ry="add_y_step * 0.1"
-                fill="#00bad1"/>
+                fill="#00bad1"
+              />
             </g>
             <g id="line-chart">
               <g id="line-y-label">
@@ -219,58 +221,62 @@
                 </text>
               </g>
               <g id="line-y">
-                <path :d="`M${add_x_begin},${add_y_begin}h${add_svg_width - add_x_begin}`"
-                style="stroke: #6f6f6f; stroke-width: 1px;"/>
-                <path :d="`M${add_x_begin},${add_y_step*3}h${add_svg_width - add_x_begin}`"
-                style="stroke: #6f6f6f; stroke-width: 1px;"/>
+                <path
+                  :d="`M${add_x_begin},${add_y_begin}h${add_svg_width - add_x_begin}`"
+                  style="stroke: #6f6f6f; stroke-width: 1px;"
+                />
+                <path
+                  :d="`M${add_x_begin},${add_y_step*3}h${add_svg_width - add_x_begin}`"
+                  style="stroke: #6f6f6f; stroke-width: 1px;"
+                />
               </g>
               <g id="line-node">
-                <rect v-for="(data, index) in cure_dataset"
+                <rect
+                  v-for="(data, index) in cure_dataset"
                   width="5"
                   height="5"
                   class="cure"
                   :x="add_x_begin + (index * 2 + 1) * add_x_step - 2.5"
                   :y="add_y_begin + (0.05 - data.cure_rate) * add_y_step * 2.5 / 0.05 - 2.5"
-                  :key="`${data.cure_rate}${index}`"/>
-                <rect v-for="(data, index) in cure_dataset"
+                  :key="`${data.cure_rate}${index}`"
+                />
+                <rect
+                  v-for="(data, index) in cure_dataset"
                   width="5"
                   height="5"
                   class="death"
                   :x="add_x_begin + (index * 2 + 1) * add_x_step - 2.5"
                   :y="add_y_begin + (0.05 - data.death_rate) * add_y_step * 2.5 / 0.05 - 2.5"
-                  :key="`${data.death_rate}${index}`"/>
+                  :key="`${data.death_rate}${index}`"
+                />
               </g>
               <g id="line-path">
-                <path
-                  :d="computed_path_death(cure_dataset)"
-                  fill="rgba(51, 51, 51, 0.1)"/>
-                <path
-                  :d="computed_path_cure(cure_dataset)"
-                  fill="rgba(121, 192, 155, 0.14)"/>
+                <path :d="computed_path_death(cure_dataset)" fill="rgba(51, 51, 51, 0.1)" />
+                <path :d="computed_path_cure(cure_dataset)" fill="rgba(121, 192, 155, 0.14)" />
                 <path
                   style="stroke: #62c298; stroke-width: 1px; stroke-dasharray: 1, 1;"
                   fill="none"
-                  :d="computed_path_cure_(cure_dataset)"/>
+                  :d="computed_path_cure_(cure_dataset)"
+                />
                 <path
                   style="stroke: #333333; stroke-width: 1px; stroke-dasharray: 1, 1;"
                   fill="none"
-                  :d="computed_path_death_(cure_dataset)"/>
+                  :d="computed_path_death_(cure_dataset)"
+                />
               </g>
               <g id="selected">
                 <text
                   text-anchor="middle"
                   style="font-size: 10px; fill: #888888;"
                   :x="add_x_begin + (date_select_id * 2 + 1) * add_x_step"
-                  :y="add_y_begin + (0.05 - cure_dataset[date_select_id].cure_rate) * add_y_step * 2.5 / 0.05 - 5">
-                  {{cure_dataset[date_select_id].cure_rate ? (cure_dataset[date_select_id].cure_rate * 100).toFixed(1) : '???'}}%
-                </text>
+                  :y="add_y_begin + (0.05 - cure_dataset[date_select_id].cure_rate) * add_y_step * 2.5 / 0.05 - 5"
+                >{{cure_dataset[date_select_id].cure_rate ? (cure_dataset[date_select_id].cure_rate * 100).toFixed(1) : '???'}}%</text>
                 <text
                   text-anchor="middle"
                   style="font-size: 10px; fill: #888888;"
                   :x="add_x_begin + (date_select_id * 2 + 1) * add_x_step"
-                  :y="add_y_begin + (0.05 - cure_dataset[date_select_id].death_rate) * add_y_step * 2.5 / 0.05 + 12">
-                  {{cure_dataset[date_select_id].death_rate ? (cure_dataset[date_select_id].death_rate * 100).toFixed(1) : '???'}}%
-                </text>
+                  :y="add_y_begin + (0.05 - cure_dataset[date_select_id].death_rate) * add_y_step * 2.5 / 0.05 + 12"
+                >{{cure_dataset[date_select_id].death_rate ? (cure_dataset[date_select_id].death_rate * 100).toFixed(1) : '???'}}%</text>
               </g>
             </g>
             <g id="bar-chart">
@@ -278,231 +284,72 @@
                 <text font-size="10" :y="add_y_begin + add_y_step * 2.5 + 4">
                   <tspan
                     v-for="(label, index) in add_bar_y_label"
-                    :key="`${label}${index}`" 
+                    :key="`${label}${index}`"
                     :x="index===5?(add_x_begin - 4):(add_x_begin - 2)"
                     :dy="add_y_step"
-                    style="text-anchor: end;">
-                    {{num2text(label)}}
-                  </tspan>
+                    style="text-anchor: end;"
+                  >{{num2text(label)}}</tspan>
                 </text>
               </g>
               <g id="bar-y">
-                <path v-for="(label, index) in add_bar_y_label"
+                <path
+                  v-for="(label, index) in add_bar_y_label"
                   :key="`${label}${index}`"
                   :d="`M${add_x_begin},${add_y_begin + add_y_step * 3.5 + add_y_step * index}h${add_svg_width - add_x_begin}`"
-                  :style="(index === 2 || index === 3) ? 'stroke: #6f6f6f; stroke-width: 1px;' : 'stroke: #6f6f6f; stroke-width: 0.3px;'"/>
+                  :style="(index === 2 || index === 3) ? 'stroke: #6f6f6f; stroke-width: 1px;' : 'stroke: #6f6f6f; stroke-width: 0.3px;'"
+                />
               </g>
               <g id="bar-rect-cure">
-                <rect v-for="(data, index) in cure_dataset"
+                <rect
+                  v-for="(data, index) in cure_dataset"
                   :key="`bar-rect-cure-${data.cure}${index}`"
                   :x="add_x_begin + (0.5 + index * 2) * add_x_step"
                   :y="(1000-data.cure)/1000 * 2 * add_y_step + add_y_step * 4"
                   :width="add_x_step"
                   :height="data.cure/1000 * 2 * add_y_step"
                   class="cure"
-                  />
-                <text v-for="(data, index) in cure_dataset"
+                />
+                <text
+                  v-for="(data, index) in cure_dataset"
                   style="text-anchor: middle;"
                   font-size="10"
                   fill="#888888"
                   :x="add_x_begin + (1 + index * 2) * add_x_step"
                   :y="(1000-data.cure)/1000 * 2 * add_y_step + add_y_step * 4 - 2"
                   :key="`bar-rect-cure-text-${data.cure}${index}`"
-                  >
-                  {{num2text(data.cure)}}
-                </text>
+                >{{num2text(data.cure)}}</text>
               </g>
               <g id="bar-rect-death">
-                <rect v-for="(data, index) in cure_dataset"
+                <rect
+                  v-for="(data, index) in cure_dataset"
                   :key="`bar-rect-death${data.death}${index}`"
                   :x="add_x_begin + (0.5 + index * 2) * add_x_step"
                   :y="add_y_step * 7"
                   :width="add_x_step"
                   :height="data.death/400 * 2 * add_y_step"
                   class="death"
-                  />
-                <text v-for="(data, index) in cure_dataset"
+                />
+                <text
+                  v-for="(data, index) in cure_dataset"
                   style="text-anchor: middle;"
                   font-size="10"
                   fill="#888888"
                   :x="add_x_begin + (1 + index * 2) * add_x_step"
                   :y="add_y_step * 7 + data.death/400 * 2 * add_y_step + 10"
                   :key="`bar-rect-death-text-${data.death}${index}`"
-                  >
-                  {{num2text(data.death)}}
-                </text>
+                >{{num2text(data.death)}}</text>
               </g>
               <g id="bar-x-label">
-                <text v-for="(label, index) in date_list"
+                <text
+                  v-for="(label, index) in date_list"
                   font-size="10"
                   font-weight="bold"
                   :fill="index===date_select_id ? 'white' : '#333333'"
                   style="text-anchor: middle;"
-                  :key="`${label}${index}`"
+                  :key="`${label.month}-${label.day}-${index}`"
                   :x="add_x_begin + (1 + index * 2) * add_x_step"
                   :y="add_y_step * 6.6"
-                >
-                  {{label}}
-                </text>
-              </g>
-            </g>
-          </svg>
-        </div>
-      </div>
-
-      <div id="subscription">
-        <div class="title_1">{{subscription_area}}</div>
-        <div class="life_svg_div">
-          <svg width="100%" height="100%">
-            <g id="selected_background">
-              <rect
-                :x="add_x_begin + (date_select_id * 2 + 1) * add_x_step - add_x_step * 1.4"
-                :y="add_y_begin"
-                :width="add_x_step * 2.8"
-                :height="add_y_step * 8.5"
-                fill="rgba(0, 186, 209, 0.2)"/>
-              <rect
-                :x="add_x_begin + (date_select_id * 2 + 1) * add_x_step - add_x_step * 1.1"
-                :y="add_y_step * 6.2"
-                :width="add_x_step * 2.2"
-                :height="add_y_step * 0.6"
-                :rx="add_y_step * 0.1"
-                :ry="add_y_step * 0.1"
-                fill="#00bad1"/>
-            </g>
-            <g id="line-chart">
-              <g id="line-y-label">
-                <text style="font-size: 10px;">
-                  <tspan style="text-anchor: end;" :x="add_x_begin-2" :y="add_y_begin+4">5%</tspan>
-                  <tspan style="text-anchor: end;" :x="add_x_begin-2" :dy="add_y_step*2.5">0</tspan>
-                </text>
-              </g>
-              <g id="line-y">
-                <path :d="`M${add_x_begin},${add_y_begin}h${add_svg_width - add_x_begin}`"
-                style="stroke: #6f6f6f; stroke-width: 1px;"/>
-                <path :d="`M${add_x_begin},${add_y_step*3}h${add_svg_width - add_x_begin}`"
-                style="stroke: #6f6f6f; stroke-width: 1px;"/>
-              </g>
-              <g id="line-node">
-                <rect v-for="(data, index) in cure_dataset_1"
-                  width="5"
-                  height="5"
-                  class="cure"
-                  :x="add_x_begin + (index * 2 + 1) * add_x_step - 2.5"
-                  :y="add_y_begin + (0.05 - data.cure_rate) * add_y_step * 2.5 / 0.05 - 2.5"
-                  :key="`${data.cure_rate}${index}`"/>
-                <rect v-for="(data, index) in cure_dataset_1"
-                  width="5"
-                  height="5"
-                  class="death"
-                  :x="add_x_begin + (index * 2 + 1) * add_x_step - 2.5"
-                  :y="add_y_begin + (0.05 - data.death_rate) * add_y_step * 2.5 / 0.05 - 2.5"
-                  :key="`${data.death_rate}${index}`"/>
-              </g>
-              <g id="line-path">
-                <path
-                  :d="computed_path_death(cure_dataset_1)"
-                  fill="rgba(51, 51, 51, 0.1)"/>
-                <path
-                  :d="computed_path_cure(cure_dataset_1)"
-                  fill="rgba(121, 192, 155, 0.14)"/>
-                <path
-                  style="stroke: #62c298; stroke-width: 1px; stroke-dasharray: 1, 1;"
-                  fill="none"
-                  :d="computed_path_cure_(cure_dataset_1)"/>
-                <path
-                  style="stroke: #333333; stroke-width: 1px; stroke-dasharray: 1, 1;"
-                  fill="none"
-                  :d="computed_path_death_(cure_dataset_1)"/>
-              </g>
-              <g id="selected">
-                <text
-                  text-anchor="middle"
-                  style="font-size: 10px; fill: #888888;"
-                  :x="add_x_begin + (date_select_id * 2 + 1) * add_x_step"
-                  :y="add_y_begin + (0.05 - cure_dataset_1[date_select_id].cure_rate) * add_y_step * 2.5 / 0.05 - 5">
-                  {{cure_dataset_1[date_select_id].cure_rate ? (cure_dataset_1[date_select_id].cure_rate * 100).toFixed(1) : '???'}}%
-                </text>
-                <text
-                  text-anchor="middle"
-                  style="font-size: 10px; fill: #888888;"
-                  :x="add_x_begin + (date_select_id * 2 + 1) * add_x_step"
-                  :y="add_y_begin + (0.05 - cure_dataset_1[date_select_id].death_rate) * add_y_step * 2.5 / 0.05 + 12">
-                  {{cure_dataset_1[date_select_id].death_rate ? (cure_dataset_1[date_select_id].death_rate * 100).toFixed(1) : '???'}}%
-                </text>
-              </g>
-            </g>
-            <g id="bar-chart">
-              <g id="bar-y-label">
-                <text font-size="10" :y="add_y_begin + add_y_step * 2.5 + 4">
-                  <tspan
-                    v-for="(label, index) in add_bar_y_label"
-                    :key="`${label}${index}`" 
-                    :x="index===5?(add_x_begin - 4):(add_x_begin - 2)"
-                    :dy="add_y_step"
-                    style="text-anchor: end;">
-                    {{num2text(label)}}
-                  </tspan>
-                </text>
-              </g>
-              <g id="bar-y">
-                <path v-for="(label, index) in add_bar_y_label"
-                  :key="`${label}${index}`"
-                  :d="`M${add_x_begin},${add_y_begin + add_y_step * 3.5 + add_y_step * index}h${add_svg_width - add_x_begin}`"
-                  :style="(index === 2 || index === 3) ? 'stroke: #6f6f6f; stroke-width: 1px;' : 'stroke: #6f6f6f; stroke-width: 0.3px;'"/>
-              </g>
-              <g id="bar-rect-cure">
-                <rect v-for="(data, index) in cure_dataset_1"
-                  :key="`bar-rect-cure-${data.cure}${index}`"
-                  :x="add_x_begin + (0.5 + index * 2) * add_x_step"
-                  :y="(1000-data.cure)/1000 * 2 * add_y_step + add_y_step * 4"
-                  :width="add_x_step"
-                  :height="data.cure/1000 * 2 * add_y_step"
-                  class="cure"
-                  />
-                <text v-for="(data, index) in cure_dataset_1"
-                  style="text-anchor: middle;"
-                  font-size="10"
-                  fill="#888888"
-                  :x="add_x_begin + (1 + index * 2) * add_x_step"
-                  :y="(1000-data.cure)/1000 * 2 * add_y_step + add_y_step * 4 - 2"
-                  :key="`bar-rect-cure-text-${data.cure}${index}`"
-                  >
-                  {{num2text(data.cure)}}
-                </text>
-              </g>
-              <g id="bar-rect-death">
-                <rect v-for="(data, index) in cure_dataset_1"
-                  :key="`bar-rect-death${data.death}${index}`"
-                  :x="add_x_begin + (0.5 + index * 2) * add_x_step"
-                  :y="add_y_step * 7"
-                  :width="add_x_step"
-                  :height="data.death/400 * 2 * add_y_step"
-                  class="death"
-                  />
-                <text v-for="(data, index) in cure_dataset_1"
-                  style="text-anchor: middle;"
-                  font-size="10"
-                  fill="#888888"
-                  :x="add_x_begin + (1 + index * 2) * add_x_step"
-                  :y="add_y_step * 7 + data.death/400 * 2 * add_y_step + 10"
-                  :key="`bar-rect-death-text-${data.death}${index}`"
-                  >
-                  {{num2text(data.death)}}
-                </text>
-              </g>
-              <g id="bar-x-label">
-                <text v-for="(label, index) in date_list"
-                  font-size="10"
-                  font-weight="bold"
-                  :fill="index===date_select_id ? 'white' : '#333333'"
-                  style="text-anchor: middle;"
-                  :key="`${label}${index}`"
-                  :x="add_x_begin + (1 + index * 2) * add_x_step"
-                  :y="add_y_step * 6.6"
-                >
-                  {{label}}
-                </text>
+                >{{label.month}}/{{label.day}}</text>
               </g>
             </g>
           </svg>
@@ -565,37 +412,29 @@ export default {
       total_step_x: 0,
       total_x_label: [0, 200, 400, 600, 800, 1000, 7000, 10000],
       date_select_id: 0,
-      date_list: [
-        "1/28",
-        "1/29",
-        "1/30",
-        "1/31",
-        "2/1",
-        "2/2",
-        "2/3",
-        "2/4",
-        "2/5",
-        "2/6",
-        "2/7",
-        "2/8",
-        "2/9",
-        "2/10",
-      ],
+
       add_svg_width: 0,
       add_svg_height: 0,
-      cure_dataset: [{
-        cure: 135,
-        death: 20,
-        diagnosis: 500
-      }],
-      cure_dataset_1: [{
-        cure: 135,
-        death: 20,
-        diagnosis: 500
-      }],
+      cure_dataset: [
+        {
+          cure: 135,
+          death: 20,
+          diagnosis: 500
+        }
+      ],
+      cure_dataset_1: [
+        {
+          cure: 135,
+          death: 20,
+          diagnosis: 500
+        }
+      ],
       add_bar_y_label: [1000, 500, 0, 0, 200, 400],
 
       country_dataset: [],
+      date_list: Array(14).fill({ month: 1, day: 1 }),
+      hubei_dataset: [],
+      wuhan_dataset: []
     };
   },
   methods: {
@@ -641,61 +480,241 @@ export default {
         .join("");
     },
     generate_data(n) {
-      let result = []
+      let result = [];
       for (let i = 0; i < n; i++) {
-        let cure = 200 + Math.round(Math.random() * 600)
-        let death = 50 + Math.round(Math.random() * 300)
-        let diagnosis = 16000 + Math.round(Math.random() * 1000)
-        let cure_rate = cure / diagnosis
-        let death_rate = death / diagnosis
+        let cure = 200 + Math.round(Math.random() * 600);
+        let death = 50 + Math.round(Math.random() * 300);
+        let diagnosis = 16000 + Math.round(Math.random() * 1000);
+        let cure_rate = cure / diagnosis;
+        let death_rate = death / diagnosis;
         result.push({
-          cure, 
+          cure,
           death,
           diagnosis,
           cure_rate,
-          death_rate,
-        })
+          death_rate
+        });
       }
-      return result
+      return result;
     },
     computed_path_cure(dataset) {
-      let result = `M${this.add_x_begin + this.add_x_step},${this.add_y_begin + this.add_y_step * 2.5}`
+      let result = `M${this.add_x_begin + this.add_x_step},${this.add_y_begin +
+        this.add_y_step * 2.5}`;
       dataset.forEach((data, index) => {
-        result += `L${this.add_x_begin + (index * 2 + 1) * this.add_x_step},${this.add_y_begin + (0.05 - data.cure_rate) * this.add_y_step * 2.5 / 0.05}`
-      })
-      result += `L${this.add_x_begin + (dataset.length * 2 - 1) * this.add_x_step},${this.add_y_begin + this.add_y_step * 2.5}Z`
+        result += `L${this.add_x_begin +
+          (index * 2 + 1) * this.add_x_step},${this.add_y_begin +
+          ((0.05 - data.cure_rate) * this.add_y_step * 2.5) / 0.05}`;
+      });
+      result += `L${this.add_x_begin +
+        (dataset.length * 2 - 1) * this.add_x_step},${this.add_y_begin +
+        this.add_y_step * 2.5}Z`;
       // console.log(result)
-      return result
+      return result;
     },
     computed_path_cure_(dataset) {
-      let result = ''
+      let result = "";
       dataset.forEach((data, index) => {
-        result += index===0 ? 'M' : 'L'
-        result += `${this.add_x_begin + (index * 2 + 1) * this.add_x_step},${this.add_y_begin + (0.05 - data.cure_rate) * this.add_y_step * 2.5 / 0.05}`
-      })
+        result += index === 0 ? "M" : "L";
+        result += `${this.add_x_begin +
+          (index * 2 + 1) * this.add_x_step},${this.add_y_begin +
+          ((0.05 - data.cure_rate) * this.add_y_step * 2.5) / 0.05}`;
+      });
       // console.log(result)
-      return result
+      return result;
     },
     computed_path_death(dataset) {
-      let result = `M${this.add_x_begin + this.add_x_step},${this.add_y_begin + this.add_y_step * 2.5}`
+      let result = `M${this.add_x_begin + this.add_x_step},${this.add_y_begin +
+        this.add_y_step * 2.5}`;
       dataset.forEach((data, index) => {
-        result += `L${this.add_x_begin + (index * 2 + 1) * this.add_x_step},${this.add_y_begin + (0.05 - data.death_rate) * this.add_y_step * 2.5 / 0.05}`
-      })
-      result += `L${this.add_x_begin + (dataset.length * 2 - 1) * this.add_x_step},${this.add_y_begin + this.add_y_step * 2.5}Z`
+        result += `L${this.add_x_begin +
+          (index * 2 + 1) * this.add_x_step},${this.add_y_begin +
+          ((0.05 - data.death_rate) * this.add_y_step * 2.5) / 0.05}`;
+      });
+      result += `L${this.add_x_begin +
+        (dataset.length * 2 - 1) * this.add_x_step},${this.add_y_begin +
+        this.add_y_step * 2.5}Z`;
       // console.log(result)
-      return result
+      return result;
     },
     computed_path_death_(dataset) {
-      let result = ''
+      let result = "";
       dataset.forEach((data, index) => {
-        result += index===0 ? 'M' : 'L'
-        result += `${this.add_x_begin + (index * 2 + 1) * this.add_x_step},${this.add_y_begin + (0.05 - data.death_rate) * this.add_y_step * 2.5 / 0.05}`
-      })
+        result += index === 0 ? "M" : "L";
+        result += `${this.add_x_begin +
+          (index * 2 + 1) * this.add_x_step},${this.add_y_begin +
+          ((0.05 - data.death_rate) * this.add_y_step * 2.5) / 0.05}`;
+      });
       // console.log(result)
-      return result
-    },
+      return result;
+    }
   },
   mounted: async function() {
+    let getDataUrl = "https://tanshaocong.github.io/2019-nCoV/map.csv";
+    let data_tmp = await d3.csv(getDataUrl);
+    let day_begin = 10;
+    let month_begin = 1;
+
+    //
+    let country_dataset_ = [];
+    data_tmp.forEach(data => {
+      if (data["类别"] === "国家级") {
+        let month = data["公开时间"].split("月")[0];
+        let day = data["公开时间"].split("日")[0].split("月")[1];
+        if (month > month_begin || (month == month_begin && day >= day_begin)) {
+          country_dataset_.push({
+            cure: data["新增治愈出院数"] ? +data["新增治愈出院数"] : 0,
+            death: data["新增死亡数"] ? +data["新增死亡数"] : 0,
+            diagnosis: data["新增确诊病例"] ? +data["新增确诊病例"] : 0,
+            hejian: data["核减"] ? +data["核减"] : 0,
+            month,
+            day
+          });
+          let len = country_dataset_.length;
+          country_dataset_[len - 1]["total_cure"] =
+            len > 1 ? country_dataset_[len - 2]["total_cure"] : 0;
+          country_dataset_[len - 1]["total_cure"] +=
+            country_dataset_[len - 1]["cure"];
+          country_dataset_[len - 1]["total_death"] =
+            len > 1 ? country_dataset_[len - 2]["total_death"] : 0;
+          country_dataset_[len - 1]["total_death"] +=
+            country_dataset_[len - 1]["death"];
+          country_dataset_[len - 1]["total_diagnosis"] =
+            len > 1 ? country_dataset_[len - 2]["total_diagnosis"] : 0;
+          country_dataset_[len - 1]["total_diagnosis"] +=
+            country_dataset_[len - 1]["diagnosis"] +
+            country_dataset_[len - 1]["hejian"];
+          country_dataset_[len - 1]["cure_rate"] = country_dataset_[len - 1]["total_cure"] / country_dataset_[len - 1]["total_diagnosis"]
+          country_dataset_[len - 1]["death_rate"] = country_dataset_[len - 1]["total_death"] / country_dataset_[len - 1]["total_diagnosis"]
+        }
+      }
+    });
+
+    // console.log(this.country_dataset)
+
+    // data_hubei
+    let hubei_dataset_ = [];
+    data_tmp.forEach(data => {
+      if (data["类别"] === "省级" && data["省份"] === "湖北") {
+        let month = data["公开时间"].split("月")[0];
+        let day = data["公开时间"].split("日")[0].split("月")[1];
+        if (month > month_begin || (month == month_begin && day >= day_begin)) {
+          hubei_dataset_.push({
+            cure: data["新增治愈出院数"] ? +data["新增治愈出院数"] : 0,
+            death: data["新增死亡数"] ? +data["新增死亡数"] : 0,
+            diagnosis: data["新增确诊病例"] ? +data["新增确诊病例"] : 0,
+            hejian: data["核减"] ? +data["核减"] : 0,
+            month,
+            day
+          });
+          let len = hubei_dataset_.length;
+          hubei_dataset_[len - 1]["total_cure"] =
+            len > 1 ? hubei_dataset_[len - 2]["total_cure"] : 0;
+          hubei_dataset_[len - 1]["total_cure"] +=
+            hubei_dataset_[len - 1]["cure"];
+          hubei_dataset_[len - 1]["total_death"] =
+            len > 1 ? hubei_dataset_[len - 2]["total_death"] : 0;
+          hubei_dataset_[len - 1]["total_death"] +=
+            hubei_dataset_[len - 1]["death"];
+          hubei_dataset_[len - 1]["total_diagnosis"] =
+            len > 1 ? hubei_dataset_[len - 2]["total_diagnosis"] : 0;
+          hubei_dataset_[len - 1]["total_diagnosis"] +=
+            hubei_dataset_[len - 1]["diagnosis"] +
+            hubei_dataset_[len - 1]["hejian"];
+        }
+      }
+    });
+    // console.log('country_dataset_', country_dataset_)
+
+    // console.log(this.hubei_dataset)
+
+    // data_wuhan
+    let wuhan_dataset_ = [];
+    data_tmp.forEach(data => {
+      if (
+        data["类别"] === "地区级" &&
+        data["省份"] === "湖北" &&
+        data["城市"] === "武汉"
+      ) {
+        let month = data["公开时间"].split("月")[0];
+        let day = data["公开时间"].split("日")[0].split("月")[1];
+        if (month > month_begin || (month == month_begin && day >= day_begin)) {
+          wuhan_dataset_.push({
+            cure: data["新增治愈出院数"] ? +data["新增治愈出院数"] : 0,
+            death: data["新增死亡数"] ? +data["新增死亡数"] : 0,
+            diagnosis: data["新增确诊病例"] ? +data["新增确诊病例"] : 0,
+            hejian: data["核减"] ? +data["核减"] : 0,
+            month,
+            day
+          });
+          let len = wuhan_dataset_.length;
+          wuhan_dataset_[len - 1]["total_cure"] =
+            len > 1 ? wuhan_dataset_[len - 2]["total_cure"] : 0;
+          wuhan_dataset_[len - 1]["total_cure"] +=
+            wuhan_dataset_[len - 1]["cure"];
+          wuhan_dataset_[len - 1]["total_death"] =
+            len > 1 ? wuhan_dataset_[len - 2]["total_death"] : 0;
+          wuhan_dataset_[len - 1]["total_death"] +=
+            wuhan_dataset_[len - 1]["death"];
+          wuhan_dataset_[len - 1]["total_diagnosis"] =
+            len > 1 ? wuhan_dataset_[len - 2]["total_diagnosis"] : 0;
+          wuhan_dataset_[len - 1]["total_diagnosis"] +=
+            wuhan_dataset_[len - 1]["diagnosis"] +
+            wuhan_dataset_[len - 1]["hejian"];
+        }
+      }
+    });
+    // console.log('country_dataset_', country_dataset_)
+    this.wuhan_dataset = wuhan_dataset_.splice(wuhan_dataset_.length - 14, 14);
+    this.hubei_dataset = hubei_dataset_.splice(hubei_dataset_.length - 14, 14);
+    this.country_dataset = country_dataset_.splice(
+      country_dataset_.length - 14,
+      14
+    );
+    // console.log(this.wuhan_dataset)
+
+    // date_list
+    let date_list = [];
+    this.country_dataset.forEach(d => {
+      date_list.push({
+        month: d.month,
+        day: d.day
+      });
+    });
+    this.date_list = date_list;
+    
+    this.cure_dataset = this.country_dataset
+    // console.log(this.cure_dataset)
+
+    let total_dataset = [
+      {
+        title_1: "武汉",
+        title_2: "",
+        siwang: [],
+        zhiyu: [],
+        quezhen: [],
+      },
+      {
+        title_1: "湖北",
+        title_2: "（除武汉）",
+        siwang: [],
+        zhiyu: [],
+        quezhen: [],
+      },
+      {
+        title_1: "全国",
+        title_2: "（除湖北）",
+        siwang: [],
+        zhiyu: [],
+        quezhen: [],
+      }
+    ]
+    for (let i = 0; i<this.country_dataset.length; i++) {
+      total_dataset[0].siwang.push()
+    }
+
+
+
+    // this.cure_dataset = this.generate_data(14);
     let total_svg_div_rect = d3
       .select("#total_svg_div")
       .node()
@@ -775,86 +794,77 @@ export default {
     let svgId = "slider_svg";
     plotDragBars(svgId, this.date_list.length);
 
-    let add_div_rect = d3.select('.life_svg_div').node().getBoundingClientRect();
+    let add_div_rect = d3
+      .select(".life_svg_div")
+      .node()
+      .getBoundingClientRect();
     // console.log(add_div_rect)
-    this.add_svg_width = add_div_rect.width
-    this.add_svg_height = add_div_rect.height
-    this.add_y_step = this.add_svg_height / 9.5
-    this.add_y_begin = this.add_y_step * 0.5
+    this.add_svg_width = add_div_rect.width;
+    this.add_svg_height = add_div_rect.height;
+    this.add_y_step = this.add_svg_height / 9.5;
+    this.add_y_begin = this.add_y_step * 0.5;
+    // console.log('this.add_y_begin', this.add_y_begin)
     this.add_x_begin = 30;
-    this.add_x_step = (this.add_svg_width - this.add_x_begin - 10) / 2 / this.cure_dataset.length
+    this.add_x_step =
+      (this.add_svg_width - this.add_x_begin - 10) /
+      2 /
+      this.cure_dataset.length;
 
-    
-    // console.log(this.cure_dataset)
-  },
-  created: async function() {
-    
-    this.cure_dataset = this.generate_data(14)
-    this.cure_dataset_1 = this.generate_data(14)
-    let getDataUrl = 'https://tanshaocong.github.io/2019-nCoV/map.csv'
-    let data_tmp = await d3.csv(getDataUrl)
-    let day_begin = 10
-    let month_begin = 1
-
-    // 
-    let country_dataset_ = []
-    console.log(data_tmp[data_tmp.length - 1]['公开时间'])
-    data_tmp.forEach((data) => {
-      if (data['类别'] === '国家级') {
-        let month = data['公开时间'].split('月')[0]
-        let day = data['公开时间'].split('日')[0].split('月')[1]
-        if (month > month_begin || (month==month_begin && day >= day_begin)) {
-          country_dataset_.push({
-            cure: data['新增治愈出院数'] ? +data['新增治愈出院数'] : 0,
-            death: data['新增死亡数'] ? +data['新增死亡数'] : 0,
-            diagnosis: data['新增确诊病例'] ? +data['新增确诊病例'] : 0,
-            hejian: data['核减'] ? +data['核减'] : 0,
-            month,
-            day,
-          })
-          let len = country_dataset_.length
-          country_dataset_[len-1]['total_cure'] = len>1 ? country_dataset_[len-2]['total_cure'] : 0
-          country_dataset_[len-1]['total_cure']+= country_dataset_[len-1]['cure']
-          country_dataset_[len-1]['total_death'] = len>1 ? country_dataset_[len-2]['total_death'] : 0
-          country_dataset_[len-1]['total_death']+= country_dataset_[len-1]['death']
-          country_dataset_[len-1]['total_diagnosis'] = len>1 ? country_dataset_[len-2]['total_diagnosis'] : 0
-          country_dataset_[len-1]['total_diagnosis'] += country_dataset_[len-1]['diagnosis'] + country_dataset_[len-1]['hejian']
-        }
-      }
-    })
-    console.log('country_dataset_', country_dataset_)
-    this.country_dataset = country_dataset_.splice(country_dataset_.length - 14, 14)
-    console.log(this.country_dataset)
   },
   computed: {
     total_dataset() {
       let wuhan = {
-          title_1: "武汉",
-          title_2: "",
-          siwang: 362,
-          zhiyu: 368,
-          quezhen: 8351
-        }
+        title_1: "武汉",
+        title_2: "",
+        siwang: this.wuhan_dataset[this.date_select_id]
+          ? this.wuhan_dataset[this.date_select_id]["total_death"]
+          : 0,
+        zhiyu: this.wuhan_dataset[this.date_select_id]
+          ? this.wuhan_dataset[this.date_select_id]["total_cure"]
+          : 0,
+        quezhen: this.wuhan_dataset[this.date_select_id]
+          ? this.wuhan_dataset[this.date_select_id]["total_diagnosis"]
+          : 0
+      };
       let hubei = {
-          title_1: "湖北",
-          title_2: "（除武汉）",
-          siwang: 117,
-          zhiyu: 152,
-          quezhen: 8327
-        }
+        title_1: "湖北",
+        title_2: "（除武汉）",
+        siwang: this.hubei_dataset[this.date_select_id]
+          ? this.hubei_dataset[this.date_select_id]["total_death"] -
+            this.wuhan_dataset[this.date_select_id]["total_death"]
+          : 0,
+        zhiyu: this.hubei_dataset[this.date_select_id]
+          ? this.hubei_dataset[this.date_select_id]["total_cure"] -
+            this.wuhan_dataset[this.date_select_id]["total_cure"]
+          : 0,
+        quezhen: this.hubei_dataset[this.date_select_id]
+          ? this.hubei_dataset[this.date_select_id]["total_diagnosis"] -
+            this.wuhan_dataset[this.date_select_id]["total_diagnosis"]
+          : 0
+      };
       let quanguo = {
-          title_1: "全国",
-          title_2: "（除湖北）",
-          siwang: this.country_dataset[this.date_select_id]['total_death'],
-          zhiyu: this.country_dataset[this.date_select_id]['total_cure'],
-          quezhen: this.country_dataset[this.date_select_id]['total_diagnosis'],
-        }
-      
-      return [wuhan, hubei, quanguo]
+        title_1: "全国",
+        title_2: "（除湖北）",
+        siwang: this.country_dataset[this.date_select_id]
+          ? this.country_dataset[this.date_select_id]["total_death"] -
+            this.hubei_dataset[this.date_select_id]["total_death"]
+          : 0,
+        zhiyu: this.country_dataset[this.date_select_id]
+          ? this.country_dataset[this.date_select_id]["total_cure"] -
+            this.hubei_dataset[this.date_select_id]["total_cure"]
+          : 0,
+        quezhen: this.country_dataset[this.date_select_id]
+          ? this.country_dataset[this.date_select_id]["total_diagnosis"] -
+            this.hubei_dataset[this.date_select_id]["total_diagnosis"]
+          : 0
+      };
+      let res = [wuhan, hubei, quanguo]
+      console.log('res', res)
+      return res;
       // let res = []
       // res.push(this.country_dataset)
     }
-  },
+  }
 };
 </script>
 
