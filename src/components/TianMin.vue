@@ -835,7 +835,8 @@ export default {
     }
     this.range_100 = range_(100);
     this.range_10 = range_(10);
-    let d = await d3.csv("https://tanshaocong.github.io/2019-nCoV/rate.csv");
+    // let d = await d3.csv("https://tanshaocong.github.io/2019-nCoV/rate.csv");
+    let d = await d3.csv("https://raw.githubusercontent.com/pkuvis/COVID-19/master/data/design/rate.csv");
     console.log(d);
     let dataset_ = [
       {
