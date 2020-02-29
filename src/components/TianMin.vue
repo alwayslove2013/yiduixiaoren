@@ -932,22 +932,22 @@ export default {
 <style lang="less">
 @font-face {
   font-family: "Khand-SemiBold";
-  src: url("/font/khand/Khand-SemiBold.ttf");
+  src: url("../assets/font/khand/Khand-SemiBold.ttf");
 }
 
 @font-face {
   font-family: "Khand-Bold";
-  src: url("/font/khand/Khand-Bold.ttf");
+  src: url("../assets/font/khand/Khand-Bold.ttf");
 }
 
 @font-face {
   font-family: "Khand-Regular";
-  src: url("/font/khand/Khand-Regular.ttf");
+  src: url("../assets/font/khand/Khand-Regular.ttf");
 }
 
 @font-face {
   font-family: "PingFangSC";
-  src: url("/font/PingFang-SC-Regular.ttf");
+  src: url("../assets/font/PingFang-SC-Regular.ttf");
 }
 
 #tianmin_div {
