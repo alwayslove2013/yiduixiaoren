@@ -902,21 +902,21 @@ export default {
       .select("#tianmin_div")
       .node()
       .getBoundingClientRect().width;
-    let div_height = d3
-      .select("#tianmin_div")
-      .node()
-      .getBoundingClientRect().height;
+    // let div_height = d3
+    //   .select("#tianmin_div")
+    //   .node()
+    //   .getBoundingClientRect().height;
     // let svg_width = d3.select('#tianmin_svg').node().getBBox().width
     let big_div = d3
       .select("#min_div")
       .node()
       .getBoundingClientRect();
     let scale = big_div.width / div_width;
-    let logo_h = div_height;
-    let logo_height = d3
-      .select("#logo")
-      .node()
-      .getBBox().height;
+    // let logo_h = div_height;
+    // let logo_height = d3
+    //   .select("#logo")
+    //   .node()
+    //   .getBBox().height;
     // console.log(logo_h, logo_height);
     d3.select("#tianmin_svg")
       .style("transform", `scale(${scale})`)
@@ -924,7 +924,7 @@ export default {
     d3.select("#logo")
       .style("transform", `scale(${scale})`)
       .style("transform-origin", "bottom left");
-    console.log(` translate(0, ${logo_h - logo_height}px)`);
+    // console.log(` translate(0, ${logo_h - logo_height}px)`);
   }
 };
 </script>

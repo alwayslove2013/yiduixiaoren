@@ -4,8 +4,8 @@
       <tian-min/>
       <!-- <tian-min-tencent/> -->
       <!-- <life-and-death/> -->
-      <life-death/>
-      <life-and-death-tencent/>
+      <!-- <life-death/>
+      <life-and-death-tencent/> -->
     </div>
   </div>
 </template>
