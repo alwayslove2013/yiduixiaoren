@@ -883,11 +883,12 @@ export default {
     let foreign_data = await d3.csv(
       "https://vis.ucloud365.com/ncov/data/foreign.csv"
     );
+    console.log(foreign_data)
     foreign_data.forEach(d => {
       // console.log(d)
-      dataset_[3]["quezhen"] += +d["新增确诊病例"];
-      dataset_[3]["siwang"] += +d["新增死亡数"];
-      dataset_[3]["zhiyu"] += +d["新增治愈出院数"];
+      dataset_[3]["quezhen"] += +d["新增确诊病例"] + (+d["核减确诊病例"]);
+      dataset_[3]["siwang"] += +d["新增死亡数"] + (+d["核减死亡数"]);
+      dataset_[3]["zhiyu"] += +d["新增治愈出院数"] + (+d["核减治愈出院数"]);
     });
 
     this.dataset = dataset_;
