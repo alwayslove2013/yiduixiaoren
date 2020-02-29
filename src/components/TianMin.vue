@@ -836,8 +836,8 @@ export default {
     this.range_100 = range_(100);
     this.range_10 = range_(10);
     // let d = await d3.csv("https://tanshaocong.github.io/2019-nCoV/rate.csv");
-    let d = await d3.csv("https://raw.githubusercontent.com/pkuvis/COVID-19/master/data/design/rate.csv");
-    console.log(d);
+    let d = await d3.csv("https://vis.ucloud365.com/ncov/data/rate.csv");
+    // console.log(d);
     let dataset_ = [
       {
         title_1: "武汉",
@@ -877,9 +877,19 @@ export default {
     dataset_[2]["quezhen"] = d[0]["全国非湖北地区"];
     dataset_[2]["siwang"] = d[1]["全国非湖北地区"];
     dataset_[2]["zhiyu"] = d[2]["全国非湖北地区"];
-    dataset_[3]["quezhen"] = d[0]["海外"];
-    dataset_[3]["siwang"] = d[1]["海外"];
-    dataset_[3]["zhiyu"] = d[2]["海外"];
+    dataset_[3]["quezhen"] = 0;
+    dataset_[3]["siwang"] = 0;
+    dataset_[3]["zhiyu"] = 0;
+    let foreign_data = await d3.csv(
+      "https://vis.ucloud365.com/ncov/data/foreign.csv"
+    );
+    foreign_data.forEach(d => {
+      // console.log(d)
+      dataset_[3]["quezhen"] += +d["新增确诊病例"];
+      dataset_[3]["siwang"] += +d["新增死亡数"];
+      dataset_[3]["zhiyu"] += +d["新增治愈出院数"];
+    });
+
     this.dataset = dataset_;
 
     for (let key in d[0]) {
@@ -912,12 +922,9 @@ export default {
       .style("transform", `scale(${scale})`)
       .style("transform-origin", "top left");
     d3.select("#logo")
-      .style(
-        "transform",
-        `scale(${scale})`
-      )
+      .style("transform", `scale(${scale})`)
       .style("transform-origin", "bottom left");
-    console.log(` translate(0, ${logo_h - logo_height}px)`)
+    console.log(` translate(0, ${logo_h - logo_height}px)`);
   }
 };
 </script>
