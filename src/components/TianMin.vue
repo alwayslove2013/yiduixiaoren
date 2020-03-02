@@ -55,12 +55,11 @@
         </g>
         <g class="num">
           <text>
-            <tspan class="zhiyu">{{data.zhiyu}}</tspan>
-            <tspan class="siwang"> | {{data.siwang}} | </tspan>
+            <tspan class="zhiyu">{{num2text(data.zhiyu)}}</tspan>
+            <tspan class="siwang"> | {{num2text(data.siwang)}} | </tspan>
             <tspan
               class="quezhen"
-            >{{parseInt(data.quezhen / 1000) > 0 ? (parseInt(data.quezhen / 1000) + ',') : ''}}</tspan>
-            <tspan class="quezhen">{{data.quezhen % 1000}}</tspan>
+            >{{num2text(data.quezhen)}}</tspan>
           </text>
         </g>
         <rect class="divider" />
@@ -784,6 +783,24 @@ export default {
     };
   },
   methods: {
+    num2text(num) {
+      let result = "";
+      if (num === 0) return "0";
+      let t = 0;
+      while (num > 0) {
+        if (t == 3) {
+          result += ",";
+          t = 0;
+        }
+        result += num % 10;
+        num = parseInt(num / 10);
+        t++;
+      }
+      return result
+        .split("")
+        .reverse()
+        .join("");
+    },
     trans(data, index) {
       let x_index = index % 20;
       let y_index = parseInt(index / 20);
