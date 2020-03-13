@@ -900,16 +900,34 @@ export default {
     let foreign_data = await d3.csv(
       "https://vis.ucloud365.com/ncov/data/foreign.csv"
     );
-    console.log(foreign_data)
+    // console.log(foreign_data)
+    let num = 0
     foreign_data.forEach(d => {
       // console.log(d)
-      dataset_[3]["quezhen"] += +d["新增确诊病例"] + (+d["核减确诊病例"]);
-      dataset_[3]["siwang"] += +d["新增死亡数"] + (+d["核减死亡数"]);
-      dataset_[3]["zhiyu"] += +d["新增治愈出院数"] + (+d["核减治愈出院数"]);
+      num = +d["新增确诊病例"] + (+d["核减确诊病例"])
+      if (isNaN(num)) {
+        console.log('not num!!! ', d)
+      } else {
+        dataset_[3]["quezhen"] += num;
+      }
+
+      num = +d["新增死亡数"] + (+d["核减死亡数"])
+      if (isNaN(num)) {
+        console.log('not num!!! ', d)
+      } else {
+        dataset_[3]["siwang"] += num;
+      }
+
+      num = +d["新增治愈出院数"] + (+d["核减治愈出院数"])
+      if (isNaN(num)) {
+        console.log('not num!!! ', d)
+      } else {
+        dataset_[3]["zhiyu"] += num;
+      }
     });
 
     this.dataset = dataset_;
-
+    // console.log(dataset_)
     for (let key in d[0]) {
       if (key.indexOf(" ") > 0) {
         let tmp = key.split(" ");
