@@ -906,21 +906,21 @@ export default {
       // console.log(d)
       num = +d["新增确诊病例"] + (+d["核减确诊病例"])
       if (isNaN(num)) {
-        console.log('not num!!! ', d)
+        console.log('the cdv_data is not num!!! ', d)
       } else {
         dataset_[3]["quezhen"] += num;
       }
 
       num = +d["新增死亡数"] + (+d["核减死亡数"])
       if (isNaN(num)) {
-        console.log('not num!!! ', d)
+        console.log('the cdv_data is not num!!! ', d)
       } else {
         dataset_[3]["siwang"] += num;
       }
 
       num = +d["新增治愈出院数"] + (+d["核减治愈出院数"])
       if (isNaN(num)) {
-        console.log('not num!!! ', d)
+        console.log('the cdv_data is not num!!! ', d)
       } else {
         dataset_[3]["zhiyu"] += num;
       }
